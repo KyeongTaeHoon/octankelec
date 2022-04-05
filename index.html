@@ -1,4 +1,3 @@
-
 <!doctype html>
 <html>
   <head>
@@ -10,6 +9,7 @@
     <title>OctankElectronics</title>
 
     <link rel="canonical" href="https://getbootstrap.com/docs/5.1/examples/album/">
+    <link rel="stylesheet" href="/css/style.css">
 	<script src = "/js/main.js"defer></script>
     
 
@@ -109,12 +109,13 @@
 				<p>Up to 8TB SSD storage			
 				<p>6 speaker sound system
 				<p>Price: 2,780,000 won</p>
-                      <button class="btn-x">장바구니</button> 
+                      <button id="view1" class="btn-x" data-userid = "100" data-itemid = "3700" data-eventtype = "watch">장바구니</button>
+
                 <small class="text-muted">!Event!</small>
               </div>
             </div>
           </div>
-        </div>
+  
         <div class="col">
           <div class="card shadow-sm">
 			<img src="https://www.lg.com/ca_en/images/washer-dryer-combo/md07509519/gallery/desktop-01.jpg" class="img-fluid" alt="...">
@@ -270,14 +271,16 @@
       </div>
     </div>
   </div>
+ </div>
+
+</main>
   <div class="popup hide">
     <div class="popup-header">
       <h1>Popup</h1>
-      <button class="btn-x">X</button>
+      <button id="closebtn" class="btn-x">X</button>
     </div>
     <div class="popup-body"></div>
   </div>
-</main>
 
 <footer class="text-muted py-5">
   <div class="container">

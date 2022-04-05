@@ -17,4 +17,14 @@ app.get('/', function(요청, 응답){
     응답.sendFile(__dirname + '/index.html');
 
 });
- 
+
+app.use('/css', express.static(__dirname + "/css"));
+
+app.get("/user-inter/:userid/:itemid/:eventtype", (req, res) => {
+    console.log("test");
+    res.render("detail.html", {
+      userid: "김홍구",
+      itemid: "옥탕크 4월 프로모션",
+      eventtype: "관심",
+    });
+  });
