@@ -60,26 +60,26 @@ const makeHtml = (userid, itemid, eventtype) => {
   </div>`;
 };
 /*시작 외부 api 데이터 가져오기 async는 비동기 함수로 큰 데이터를 가져올때 비동기 처리를 위해 사용*/
-const init = async () => {
+/*const init = async () => {
   const result = await fetch('/getlist', {
     method: 'POST', // or 'PUT'
     body: JSON.stringify({ userId :100,numResults:9,campaignArn: 'arn:aws:personalize:us-east-1:593182458133:campaign/poc-campaign' }), // data can be `string` or {object}!
     headers: {
       'Content-Type': 'application/json'
     }});
-  // const data = await result.json();
+  const data = await result.json();
 
   console.log(result)
-  // const htmlArr = data.map(({ capital, language, nationality }) => {
-  //   return makeHtml(capital, language, nationality);
-  // });
-  // container.innerHTML = htmlArr.join("");
+  const htmlArr = data.map(({ capital, language, nationality }) => {
+    return makeHtml(capital, language, nationality);
+  });
+  container.innerHTML = htmlArr.join("");
 };
 const cart = document.querySelector("#cart");
 
 
+*/
 /*
-
 const view1 = document.querySelector("#view1");
 
 view1.addEventListener('click', (event) => {

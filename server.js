@@ -30,9 +30,9 @@ app.get('/oct', function(요청, 응답){
 
 });
 
-/*
-app.get('/', function(요청, 응답){
-  응답.sendFile(__dirname + '/index.html');
+
+// app.get('/', function(요청, 응답){
+//   응답.sendFile(__dirname + '/index.html');
 
     // var params = {
 //       campaignArn: 'arn:aws:personalize:us-east-1:593182458133:campaign/poc-campaign',
@@ -44,8 +44,7 @@ app.get('/', function(요청, 응답){
 //       else     console.log(data);           // successful response
 //     }); 
 //     응답.sendFile(__dirname + '/index.html');
-});
-*/
+// });
 
 //ryz
 app.get('/', function(요청, 응답){
@@ -54,19 +53,21 @@ app.get('/', function(요청, 응답){
     var personalizeruntime = new AWS.PersonalizeRuntime();
     var params = {
       campaignArn: 'arn:aws:personalize:us-east-1:593182458133:campaign/poc-campaign',
-      numResults: '400',
+      numResults: '9',
       userId: '100'
     };
     personalizeruntime.getRecommendations(params, function(err, data) {
       if (err) console.log(err, err.stack); // an error occurred
       else {
         apiBody = data;
-        console.log(data);           // successful response
+        console.log(data);
+        // console.log(data);
+          // successful response
       }   
       
     });
 
-    /*
+   /* 
    var apiBody = {
      itemList: [
       { itemId: '3253', score: 0.0075039 },
@@ -85,7 +86,7 @@ app.get('/', function(요청, 응답){
     var body = JSON.parse(fs.readFileSync('./item.json', 'utf8'));
     var resultBody =[];
 
-    for(var i = 0; i<apiBody.itemList.length; i++){
+    for(var i = 0; i<apiBody.length; i++){
       for(var j = 0; j<body.result.length; j++){
         if (body.result[j].id == apiBody.itemList[i].itemId){    
           resultBody.push({"id":body.result[j].id, "image":body.result[j].image, "data1":body.result[j].data1, "data2":body.result[j].data2, "data3":body.result[j].data3, "data4":body.result[j].data4, "data5":body.result[j].data5});      
