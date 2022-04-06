@@ -78,6 +78,8 @@ const init = async () => {
 const cart = document.querySelector("#cart");
 
 
+/*
+
 const view1 = document.querySelector("#view1");
 
 view1.addEventListener('click', (event) => {
@@ -91,8 +93,6 @@ const eventtype = event?.target?.dataset?.eventtype;
 
 openPopup(userid, itemid, eventtype);
 
-
-/*popup 열기*/
 
 });
 const view2 = document.querySelector("#view2");
@@ -122,6 +122,23 @@ const eventtype = event?.target?.dataset?.eventtype;
 
 openPopup(userid, itemid, eventtype);
 });
+*/
+
+
+//ryz
+for (var i =1; i<10; i++){
+
+  const view = document.querySelector("#view" + i);
+  view.addEventListener('click', (event) => {
+
+    const userid = event?.target?.dataset?.userid;
+    const itemid = event?.target?.dataset?.itemid;
+    const eventtype = event?.target?.dataset?.eventtype;
+  
+  openPopup(userid, itemid, eventtype);
+  });
+}
+//
 
 window.onpageshow = function (event) {
   //console.log(window.performance);
