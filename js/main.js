@@ -4,10 +4,11 @@ const container = document.querySelector(".container");
 const popup = document.querySelector(".popup");
 /*closeBtn*/
 const closeBtn = document.querySelector("#closebtn");
-
 /*팝업 닫기 함수*/
 const closePopup = () => {
 console.log("test2")
+
+
 
 /*hide 클래스 추가로 숨김*/
 popup.classList.add("hide");
@@ -16,10 +17,12 @@ popup.classList.add("hide");
 };
 /*popup 열기*/
 const openPopup = async (userid, itemid, eventtype) => {
-const result = await fetch(
+  
+  const result = await fetch(
         ""
       );
 
+      
 popup.classList.remove("hide");
 const popBody = document.querySelector(".popup-body");
 popBody.innerHTML = `<p>${userid}</p><p>${itemid}</p><p>${eventtype}</p>`;
@@ -30,10 +33,14 @@ popBody.innerHTML = `<p>${userid}</p><p>${itemid}</p><p>${eventtype}</p>`;
 closeBtn.addEventListener("click", (event) => {
   if (event.target === event.currentTarget) {
     closePopup();
+    console.log("close")
     location.reload();
   }
 
 });
+
+const cart = document.querySelector("#cart");
+
 
 const view1 = document.querySelector("#view1");
 
@@ -65,7 +72,25 @@ const eventtype = event?.target?.dataset?.eventtype;
 
 openPopup(userid, itemid, eventtype);
 });
+
+const view3 = document.querySelector("#view3");
+
+view3.addEventListener('click', (event) => {
+  const id = event.target.getAttribute("class");
+
+  const userid = event?.target?.dataset?.userid;
+console.log(userid)
+  const itemid = event?.target?.dataset?.itemid;
+
+const eventtype = event?.target?.dataset?.eventtype;
+
+openPopup(userid, itemid, eventtype);
+});
 /*page 이동(노드서버로 호출)*/
 const movePage = (userid, itemid, eventtype) => {
     location.href = `/user-inter/100/3700/watch`;
   };
+
+
+  
+  

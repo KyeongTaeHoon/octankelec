@@ -1,0 +1,24 @@
+var mysql = require('mysql');
+var db_info = {
+    host: 'taehoon-aurora-poc.cluster-cct6axswzdpb.us-east-1.rds.amazonaws.com',
+    port: '3306',
+    user: 'admin',
+    password: 'Kk11596714*',
+    database: 'octank_poc'
+}
+
+module.exports = {
+    init: function () {
+        return mysql.createConnection(octank);
+    },
+    connect: function(conn) {
+        conn.connect(function(err) {
+            if(err) console.error('mysql connection error : ' + err);
+            else console.log('mysql is connected successfully!');
+        });
+    }
+}
+
+const mysql = require('mysql');
+import rating_sample_csv from octank_poc;
+octank_poc.config()

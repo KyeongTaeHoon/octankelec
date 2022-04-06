@@ -11,7 +11,7 @@ app.listen(8080, function(){
 });
 
 app.get('/oct', function(요청, 응답){
-    응답.send('옥탕크 전자 공식 사이트입니다.');
+    응답.send(__dirname + '/oct.html');
 
 });
 
@@ -27,11 +27,7 @@ app.get('/', function(요청, 응답){
       if (err) console.log(err, err.stack); // an error occurred
       else     console.log(data);           // successful response
     }); 
-
-    
     응답.sendFile(__dirname + '/index.html');
-
-    
 });
 
 app.use('/css', express.static(__dirname + "/css"));

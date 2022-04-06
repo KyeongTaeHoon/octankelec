@@ -1,0 +1,17 @@
+{
+    "sqltools.connections": [
+        {
+            "mysqlOptions": {
+                "authProtocol": "default"
+            },
+            "previewLimit": 50,
+            "server": "taehoon-aurora-poc.cluster-cct6axswzdpb.us-east-1.rds.amazonaws.com",
+            "port": 3306,
+            "driver": "MySQL",
+            "name": "octank-connection",
+            "database": "octank_poc",
+            "username": "admin",
+            "password": "Kk11596714*"
+        }
+    ]
+}
