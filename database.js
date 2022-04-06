@@ -7,9 +7,10 @@ var db_info = {
     database: 'octank_poc'
 }
 
+
 module.exports = {
     init: function () {
-        return mysql.createConnection(octank);
+        return mysql.createConnection(db_info);
     },
     connect: function(conn) {
         conn.connect(function(err) {
@@ -18,7 +19,3 @@ module.exports = {
         });
     }
 }
-
-const mysql = require('mysql');
-import rating_sample_csv from octank_poc;
-octank_poc.config()
