@@ -42,14 +42,16 @@ app.get('/', function(요청, 응답){
     };
     personalizeruntime.getRecommendations(params, function(err, data) {
       if (err) console.log(err, err.stack); // an error occurred
+      
       else {
         var body = JSON.parse(fs.readFileSync('./item.json', 'utf8'));
     var resultBody =[];
-       apiBody = data;
+       apiBody = data.itemList;
        console.log(apiBody);
        for(var i = 0; i<apiBody.length; i++){
         for(var j = 0; j<body.result.length; j++){
-          if (body.result[j].id == apiBody[i]){    
+          if (body.result[j].id == apiBody[i].itemId){   
+            console.log(body.result[j].id) 
             resultBody.push({"id":body.result[j].id, "image":body.result[j].image, "data1":body.result[j].data1, "data2":body.result[j].data2, "data3":body.result[j].data3, "data4":body.result[j].data4, "data5":body.result[j].data5});      
             break;      
           }
