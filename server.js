@@ -30,26 +30,10 @@ app.get('/oct', function(요청, 응답){
 
 });
 
-
-// app.get('/', function(요청, 응답){
-//   응답.sendFile(__dirname + '/index.html');
-
-    // var params = {
-//       campaignArn: 'arn:aws:personalize:us-east-1:593182458133:campaign/poc-campaign',
-//       numResults: '9',
-//       userId: '100'
-//     };
-//     personalizeruntime.getRecommendations(params, function(err, data) {
-//       if (err) console.log(err, err.stack); // an error occurred
-//       else     console.log(data);           // successful response
-//     }); 
-//     응답.sendFile(__dirname + '/index.html');
-// });
-
 //ryz
 app.get('/', function(요청, 응답){
 
-    let apiBody;
+  let apiBody = [];
     var personalizeruntime = new AWS.PersonalizeRuntime();
     var params = {
       campaignArn: 'arn:aws:personalize:us-east-1:593182458133:campaign/poc-campaign',
@@ -59,54 +43,41 @@ app.get('/', function(요청, 응답){
     personalizeruntime.getRecommendations(params, function(err, data) {
       if (err) console.log(err, err.stack); // an error occurred
       else {
-        apiBody = data;
-        console.log(data);
-        // console.log(data);
-          // successful response
-      }   
-      
-    });
-
-   /* 
-   var apiBody = {
-     itemList: [
-      { itemId: '3253', score: 0.0075039 },
-      { itemId: '3994', score: 0.0069444 },
-      { itemId: '2918', score: 0.0065932 },
-      { itemId: '1968', score: 0.0063599 },
-      { itemId: '1282', score: 0.0058024 },
-      { itemId: '1249', score: 0.005314 },
-      { itemId: '1060', score: 0.0044879 },
-      { itemId: '1466', score: 0.0044695 },
-      { itemId: '1285', score: 0.0042395 }]
-    };
-*/
-
-
-    var body = JSON.parse(fs.readFileSync('./item.json', 'utf8'));
+        var body = JSON.parse(fs.readFileSync('./item.json', 'utf8'));
     var resultBody =[];
+       apiBody = data;
+       console.log(apiBody);
+       for(var i = 0; i<apiBody.length; i++){
+        for(var j = 0; j<body.result.length; j++){
+          if (body.result[j].id == apiBody[i]){    
+            resultBody.push({"id":body.result[j].id, "image":body.result[j].image, "data1":body.result[j].data1, "data2":body.result[j].data2, "data3":body.result[j].data3, "data4":body.result[j].data4, "data5":body.result[j].data5});      
+            break;      
+          }
+          
+        };      
+      };
+  
+      var merged = resultBody.concat(body.result);
+      var result = merged.filter(function(item1, idx1){
+        //filter() 메서드는 콜백함수에서 정의한 조건이 true인 항목만 리턴한다.(필터링)
+          return merged.findIndex(function(item2, idx){
+            //findIndex() 메서드는 콜백함수에 정의한 조건이 true인 항목의 index를 리턴한다.
+              return item1.id == item2.id
+          }) == idx1;
+      });
+  //     console.log("haha");
+  // console.log(result);
+  // console.log("haha");
+  console.log('result',result);
+      응답.render('index', {'num' : result.length, 'body' : result} );
+  
+                  // successful response
+      }    
+    });  
+  });
 
-    for(var i = 0; i<apiBody.length; i++){
-      for(var j = 0; j<body.result.length; j++){
-        if (body.result[j].id == apiBody.itemList[i].itemId){    
-          resultBody.push({"id":body.result[j].id, "image":body.result[j].image, "data1":body.result[j].data1, "data2":body.result[j].data2, "data3":body.result[j].data3, "data4":body.result[j].data4, "data5":body.result[j].data5});      
-          break;
-        }
-      };      
-    };
-
-    var merged = resultBody.concat(body.result);
-    var result = merged.filter(function(item1, idx1){
-      //filter() 메서드는 콜백함수에서 정의한 조건이 true인 항목만 리턴한다.(필터링)
-        return merged.findIndex(function(item2, idx){
-          //findIndex() 메서드는 콜백함수에 정의한 조건이 true인 항목의 index를 리턴한다.
-            return item1.id == item2.id
-        }) == idx1;
-    });
-
-    응답.render('index', {'num' : result.length, 'body' : result} );
-
-});
+  
+    
 //ryz
 
 
@@ -123,6 +94,7 @@ app.post("/user-inter", (req, res) => {
   if(err){
     status= 'fail'
   }else{
+    console.log(req.body);
     status = 'success';
   }
   });
@@ -132,21 +104,21 @@ app.post("/user-inter", (req, res) => {
       {
         eventType: eventtype, /* required */
         sentAt: timestamp, /* required */
-        impression: [
-          'STRING_VALUE',
-          /* more items */
-        ],
+        
         itemId: itemid,
       },
       /* more items */
     ],
-    sessionId: 'STRING_VALUE', /* required */
+    sessionId: 'req.sessionID', /* required */
     trackingId: '1951d070-420b-477d-a02d-82e14e4c9f96', /* required */
     userId: userid
   };
   personalizeevents.putEvents(params2, function(err, data) {
     if (err) status = 'fail'; // an error occurred
-    else     status='success';           // successful response
+    else     {
+
+      status='success';
+    }           // successful response
   });
   res.send({ status});
 
@@ -160,12 +132,12 @@ app.post('/getlist', function(요청, 응답){
       numResults: '9',
       userId: '100' 
     };
-    console.log(userId)
+
     personalizeruntime.getRecommendations(params, function(err, data) {
       if (err) console.log(err, err.stack); // an error occurred
       else{
         result = data 
-        console.log(data)
+        
       }               // successful response
     }); 
     응답.send(result.itemList);
