@@ -20,8 +20,8 @@ AWS.config.update({region:'us-east-1'});
 
 app.use('/js', express.static(__dirname + "/js"));
 app.use(bodyParser.json());
-app.listen(80, function(){
-    console.log('listening on 80')
+app.listen(8080, function(){
+    console.log('listening on 8080')
 
 });
 
